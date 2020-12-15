@@ -1,13 +1,22 @@
 from lexer import *
 
+
 def main():
-    input = "/** sdfs sdfdsf dsf ds **/ \t \r  \r\r\r\r\r/** another comment **/ +-*/*"
-    lex = Lexer(input)
+
+    input_string = open("input.txt", "r").read()
+    out_file = open("out.txt", "w")
+    lex = Lexer(input_string)
     t = lex.getToken()
+
     while t.type != TokenType.EOF:
-        print(t.type, t.value)
+        # print(t.value, t.type)
+        if t.type != TokenType.NEWLINE:
+            s = t.value + ", " + t.type.name + "\n"
+            out_file.write(s)
         t = lex.getToken()
 
-if __name__ == '__main__':
+    out_file.close()
+
+
+if __name__ == "__main__":
     main()
-    
